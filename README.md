@@ -75,3 +75,25 @@ Wiring note: gate relay MUST be wired via a fail-safe relay/hardware interlock. 
 4) Files you can paste into GitHub (minimal, runnable skeleton)
 
 Below are essential files and minimal implementation to get an end-to-end flow working locally with mock cameras. Paste them file-by-file with exact paths.
+
+# GateKeeper — Face Recognition Attendance & Gate Control (skeleton)
+
+This repo is a production-minded skeleton that provides:
+- Face recognition service (FastAPI, Python)
+- Gate controller (Raspberry Pi able)
+- API gateway (Node/Express)
+- Dashboard (React) with live users inside counter
+- Postgres + Redis
+- Fallback QR & fingerprint support
+
+NOTES:
+- This is a functional skeleton for local testing & acceptance. Replace placeholder model files with production models (InsightFace/FaceNet) before launch.
+- Read `docs/DEPLOYMENT.md` for hardware setup & safety.
+
+Quick start (local):
+1. copy `.env.example` to `.env`
+2. `docker-compose up --build`
+3. Open dashboard at http://localhost:3000
+4. Use the API endpoints to enroll and simulate camera detections.
+
+Acceptance tests in `docs/acceptance.md`.
