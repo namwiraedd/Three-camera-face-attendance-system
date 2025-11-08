@@ -97,3 +97,43 @@ Quick start (local):
 4. Use the API endpoints to enroll and simulate camera detections.
 
 Acceptance tests in `docs/acceptance.md`.
+
+Run DB migration:
+
+docker-compose up -d postgres redis
+# wait for postgres ready (check logs)
+psql $DATABASE_URL -f infra/migrations/001_init.sql
+
+
+Start the stack:
+
+docker-compose up --build
+
+
+Open dashboard: http://localhost:3000
+
+Enroll a user (use curl to POST an image to /face-service/enroll) or use the kiosk to upload.
+
+Simulate camera frame: POST a frame (binary image) to http://localhost:8500/detect?camera_id=entry1
+
+Gate controller (logs) will open gate on recognition; fallback via /qr/validate or /fingerprint/verify.
+
+6) Acceptance Testing Checklist (deliverable)
+
+ Camera 1 (kiosk) enrolls user image and creates user embedding (POST /enroll -> DB row).
+
+ Camera 2 detects user frame, face service returns matched user_id and publishes event.
+
+ Gate controller receives event and triggers gate open (GPIO or mock prints).
+
+ On recognition failure, QR validation (/qr/validate) accepts JWT token and triggers gate.
+
+ Fingerprint scanner posts /fingerprint/verify and triggers gate.
+
+ Dashboard displays live “Users Inside” count that updates in real time (or via 3s poll in the skeleton).
+
+ Historical logs available: /recent and DB table logs contain entries searchable by name/date/camera.
+
+ Monthly summaries exportable to CSV via SQL export (you can script with COPY command; provide later if required).
+
+ Anti-spoofing placeholder: kiosk requires blink challenge on enrollment or liveness pass (skeleton logs failed frames).
