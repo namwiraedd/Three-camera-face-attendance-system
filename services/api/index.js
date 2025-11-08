@@ -45,3 +45,9 @@ app.post('/fingerprint/verify', async (req,res)=>{
 });
 
 app.listen(process.env.API_PORT || 8000, ()=>console.log("API listening"));
+
+app.get('/recent', async (req,res) => {
+  const r = await pool.query("SELECT id, user_id, name, camera_id, matched, score, ts FROM logs ORDER BY ts DESC LIMIT 20");
+  res.json(r.rows);
+});
+
