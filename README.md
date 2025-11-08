@@ -1,6 +1,6 @@
-Below I give:
+Below 
 
-a short architecture + tech choices (why I picked them)
+a short architecture + tech choices 
 
 anti-spoofing / hardening plan
 
