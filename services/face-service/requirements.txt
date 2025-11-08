@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+opencv-python-headless
+face_recognition
+numpy
+psycopg2-binary
+redis
+boto3
+python-jose
+pydantic
+aiofiles
+python-dotenv
